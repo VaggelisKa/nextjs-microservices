@@ -20,13 +20,13 @@ const useRequest = ({ url, reqType, body, onSuccess }) => {
       }
 
       setUserObj(res.data);
-    } catch (err) {
+    } catch (error) {
       setErrors(
         <div className="alert alert-danger">
           <h4 className="pb-2 text-center">Oooops...</h4>
           <ul className="my-0">
             {
-              err.response.data.errors.map(err => <li key={err.message}>{err.message}</li>)
+              error.response.data.errors.map(err => <li key={err.message}>{err.message}</li>)
             }
           </ul>
         </div>
@@ -38,6 +38,3 @@ const useRequest = ({ url, reqType, body, onSuccess }) => {
 };
 
 export default useRequest;
-
-
-

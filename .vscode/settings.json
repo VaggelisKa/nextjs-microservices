@@ -8,6 +8,11 @@
     "plaintext": "jade"
 },
 "cSpell.ignoreWords": [
-  "oooops"
+  "arrow",
+  "camelcase",
+  "linebreak",
+  "oooops",
+  "parens",
+  "style"
 ]
 }

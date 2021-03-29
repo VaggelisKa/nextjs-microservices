@@ -6,7 +6,7 @@ import useRequest from '../../hooks/useRequest';
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { sendRequest, errors, userObj } = useRequest({
+  const { sendRequest, errors } = useRequest({
     url: '/api/users/signup',
     reqType: 'post',
     body: { email, password },
@@ -17,28 +17,29 @@ export default function Signup() {
     e.preventDefault();
 
     sendRequest();
-  }
+  };
 
   return (
     <form className="container" onSubmit={handleSubmit}>
       <h1 className="text-center py-3">Signup</h1>
       { errors }
       <div className="form-group px-2">
-        <label>Email Address</label>
+        <label htmlFor="email">Email Address</label>
         <input
           value={email}
           type="text"
           className="form-control"
-          onChange={ (e) => setEmail(e.target.value) }
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="form-group px-2">
-        <label>Password</label>
+        <label htmlFor="password">Password</label>
         <input
           value={password}
-          type="password" 
+          type="password"
+          id="password"
           className="form-control"
-          onChange={ (e) => setPassword(e.target.value) }
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <div className="d-flex justify-content-end pr-2">
@@ -48,4 +49,4 @@ export default function Signup() {
       </div>
     </form>
   );
-};
+}
