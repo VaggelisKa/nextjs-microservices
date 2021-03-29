@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const useRequest = ({ url, reqType, body }) => {
+const useRequest = ({ url, reqType, body, onSuccess }) => {
   const [userObj, setUserObj] = useState(null);
   const [errors, setErrors] = useState(null);
 
@@ -14,6 +14,10 @@ const useRequest = ({ url, reqType, body }) => {
         url,
         data: body
       });
+
+      if (onSuccess) {
+        onSuccess(res.data);
+      }
 
       setUserObj(res.data);
     } catch (err) {

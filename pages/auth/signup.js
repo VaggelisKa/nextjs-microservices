@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import useRequest from '../../hooks/useRequest';
+import Router from 'next/router';
 
+import useRequest from '../../hooks/useRequest';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -9,7 +9,8 @@ export default function Signup() {
   const { sendRequest, errors, userObj } = useRequest({
     url: '/api/users/signup',
     reqType: 'post',
-    body: { email, password }
+    body: { email, password },
+    onSuccess: () => Router.push('/')
   });
 
   const handleSubmit = async (e) => {
