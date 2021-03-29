@@ -1,44 +1,27 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import useRequest from '../../hooks/useRequest';
 
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setError] = useState([]);
+  const { sendRequest, errors, userObj } = useRequest({
+    url: '/api/users/signup',
+    reqType: 'post',
+    body: { email, password }
+  });
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      setError([]);
+    e.preventDefault();
 
-      const res = await axios.post('/api/users/signup', {
-        email,
-        password
-      });
-  
-      console.log(res.data);
-    } catch (err) {
-      setError(err.response.data.errors);
-    }
+    sendRequest();
   }
-
 
   return (
     <form className="container" onSubmit={handleSubmit}>
       <h1 className="text-center py-3">Signup</h1>
-      {
-        errors.length > 0 && (
-          <div className="alert alert-danger">
-            <h4 className="pb-2 text-center">Oooops...</h4>
-            <ul className="my-0">
-              {
-                errors.map(err => <li key={err.message}>{err.message}</li>)
-              }
-            </ul>
-          </div>
-        )
-      }
+      { errors }
       <div className="form-group px-2">
         <label>Email Address</label>
         <input
