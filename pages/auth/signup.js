@@ -2,29 +2,48 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 
-export default () => {
+export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setError] = useState([]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+      setError([]);
 
-    const res = await axios.post('/api/users/signup', {
-      email,
-      password
-    });
-
-    console.log(res.data);
+      const res = await axios.post('/api/users/signup', {
+        email,
+        password
+      });
+  
+      console.log(res.data);
+    } catch (err) {
+      setError(err.response.data.errors);
+    }
   }
 
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="container" onSubmit={handleSubmit}>
       <h1 className="text-center py-3">Signup</h1>
+      {
+        errors.length > 0 && (
+          <div className="alert alert-danger">
+            <h4 className="pb-2 text-center">Oooops...</h4>
+            <ul className="my-0">
+              {
+                errors.map(err => <li key={err.message}>{err.message}</li>)
+              }
+            </ul>
+          </div>
+        )
+      }
       <div className="form-group px-2">
         <label>Email Address</label>
         <input
           value={email}
-          type="text" 
+          type="text"
           className="form-control"
           onChange={ (e) => setEmail(e.target.value) }
         />

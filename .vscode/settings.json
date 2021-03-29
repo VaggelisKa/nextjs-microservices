@@ -6,5 +6,8 @@
     "vue-html": "html",
     "razor": "html",
     "plaintext": "jade"
-}
+},
+"cSpell.ignoreWords": [
+  "oooops"
+]
 }
