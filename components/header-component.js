@@ -1,13 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
+import Router from 'next/router';
+import useRequest from '../hooks/useRequest';
 
-const Header = ({ currentUser }) => (
-  <div
-    className="w-auto px-3 d-flex justify-content-between mb-5"
-    style={{backgroundColor: '#007bfe', height: '72px', alignItems: 'center'}}
-  >
-    <h3 style={{color: 'white'}} className="m-0">GetNext</h3>
-    {
+const Header = ({ currentUser }) => {
+  const { sendRequest } = useRequest({
+    url: '/api/users/signout',
+    reqType: 'post',
+    body: {},
+    onSuccess: () => Router.reload()
+  });
+
+  return (
+    <div
+      className="w-auto px-3 d-flex justify-content-between mb-5"
+      style={{backgroundColor: '#007bfe', height: '72px', alignItems: 'center'}}
+    >
+      <h3 style={{color: 'white'}} className="m-0">GetNext</h3>
+      {
       !currentUser ? (
         <div>
           <ul className="d-flex m-auto" style={{listStyle: 'none'}}>
@@ -27,12 +37,16 @@ const Header = ({ currentUser }) => (
         <button
           type="button"
           className="btn"
+          onClick={async () => {
+            await sendRequest();
+          }}
         >
           <p className="m-0" style={{color: 'white', fontSize: '18px'}}>Sign out</p>
         </button>
       )
     }
-  </div>
-);
+    </div>
+  );
+};
 
 export default Header;
