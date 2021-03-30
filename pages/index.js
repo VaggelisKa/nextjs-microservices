@@ -1,18 +1,9 @@
 import React from 'react';
 
-import buildClient from '../api/build-client';
-
-export const LandingPage = ({ currentUser }) => (
+export const LandingPage = () => (
   <div>
-    {currentUser?.email || 'You are not signed in'}
+    DashboardPage
   </div>
 );
-
-LandingPage.getInitialProps = async (context) => {
-  const client = buildClient(context);
-  const { data } = await client.get('/api/users/currentUser');
-
-  return data;
-};
 
 export default LandingPage;
